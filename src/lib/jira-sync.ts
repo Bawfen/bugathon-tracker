@@ -46,7 +46,23 @@ export class JiraSyncService {
 
       return { success: true, ticketsProcessed: tickets.length };
     } catch (error) {
-      console.error("Sync failed:", JSON.stringify(error, null, 2));
+      if (axios.isAxiosError(error)) {
+        console.error("Sync failed:", {
+          message: error.message,
+          status: error.response?.status,
+          statusText: error.response?.statusText,
+          data: error.response?.data,
+          config: {
+            method: error.config?.method,
+            url: error.config?.url,
+            headers: error.config?.headers,
+          },
+          code: error.code,
+        });
+      } else {
+        console.error("Sync failed:", JSON.stringify(error, null, 2));
+      }
+
       return { success: false, error };
     }
   }
