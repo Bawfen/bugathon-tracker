@@ -46,7 +46,7 @@ export class JiraSyncService {
 
       return { success: true, ticketsProcessed: tickets.length };
     } catch (error) {
-      console.error("Sync failed:", error);
+      console.error("Sync failed:", JSON.stringify(error, null, 2));
       return { success: false, error };
     }
   }
