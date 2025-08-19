@@ -52,7 +52,7 @@ export class JiraSyncService {
   }
 
   private async fetchJiraTickets(): Promise<JiraTicket[]> {
-    const url = `https://${this.domain}.atlassian.net/rest/api/3/search`;
+    const url = `https://${this.domain}.atlassian.net/rest/api/3/search/jql`;
     const response = await axios.get(url, {
       headers: {
         Authorization: `Basic ${this.auth}`,
