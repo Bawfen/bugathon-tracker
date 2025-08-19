@@ -29,6 +29,7 @@ export class JiraSyncService {
 
   async syncBugathonData() {
     try {
+      console.log("syncBugathonData");
       // Fetch tickets from Jira
       const tickets = await this.fetchJiraTickets();
 

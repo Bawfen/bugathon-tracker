@@ -4,6 +4,7 @@ import { JiraSyncService } from "@/lib/jira-sync";
 
 export async function POST(request: Request) {
   try {
+    console.log("POST to SYNC");
     // Optional: Add authentication here
     const syncService = new JiraSyncService();
     const result = await syncService.syncBugathonData();
