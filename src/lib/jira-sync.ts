@@ -45,9 +45,10 @@ export class JiraSyncService {
       await this.checkAchievements();
 
       return { success: true, ticketsProcessed: tickets.length };
-    } catch (error) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
       if (axios.isAxiosError(error)) {
-        console.error("Sync failed:", {
+        console.error("Sync failed because of axios:", {
           message: error.message,
           status: error.response?.status,
           statusText: error.response?.statusText,
@@ -61,6 +62,7 @@ export class JiraSyncService {
         });
       } else {
         console.error("Sync failed:", JSON.stringify(error, null, 2));
+        console.error(JSON.stringify(error.response));
       }
 
       return { success: false, error };
