@@ -8,6 +8,7 @@ interface JiraTicket {
     status: { name: string; statusCategory: { key: string } };
     reporter: { accountId: string; displayName: string };
     assignee?: { accountId: string; displayName: string };
+    customfield_10312?: { accountId: string; displayName: string }; // Assigned Dev
     customfield_10016?: number; // Sprint points field
     created: string;
     resolved?: string;
@@ -90,7 +91,9 @@ export class JiraSyncService {
 
   private async processTickets(tickets: JiraTicket[]) {
     const processedTickets = tickets.map((ticket) => {
-      const isNewBug = ticket.fields.summary.includes("[Bugathon New]");
+      const isNewBug = ticket.fields.summary
+        .toUpperCase()
+        .includes("[BUGATHON NEW]");
       const sprintPoints = ticket.fields.customfield_10016 || 0;
       const isDone = ticket.fields.status.statusCategory.key === "done";
 
