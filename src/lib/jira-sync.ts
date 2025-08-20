@@ -11,7 +11,7 @@ interface JiraTicket {
     customfield_10312?: { accountId: string; displayName: string }; // Assigned Dev
     customfield_10016?: number; // Sprint points field
     created: string;
-    resolved?: string;
+    resolutiondate?: string;
     priority: { name: string };
     issuetype: { name: string };
   };
@@ -81,7 +81,7 @@ export class JiraSyncService {
       params: {
         jql: 'labels = "Bugathon"',
         fields:
-          "key,summary,status,reporter,assignee,customfield_10016,created,resolved,priority,issuetype",
+          "key,summary,status,reporter,assignee,customfield_10016,created,resolutiondate,priority,issuetype",
         maxResults: 100,
       },
     });
@@ -111,7 +111,7 @@ export class JiraSyncService {
         reporter_points: isNewBug ? sprintPoints * 0.5 : 0,
         assignee_points: isDone ? sprintPoints : 0,
         created_at: ticket.fields.created,
-        resolved_at: ticket.fields.resolved || null,
+        resolved_at: ticket.fields.resolutiondate || null,
         priority: ticket.fields.priority.name,
         issue_type: ticket.fields.issuetype.name,
         last_updated: new Date().toISOString(),
