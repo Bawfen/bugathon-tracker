@@ -6,7 +6,7 @@ export async function GET() {
   const { data: dailyStats } = await supabase
     .from("daily_stats")
     .select("*")
-    .order("date", { ascending: false })
+    .order("date", { ascending: true })
     .limit(7);
 
   // Get team totals
